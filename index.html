@@ -8,16 +8,22 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --blue:   #0f62fe;
-      --blue-dark: #003f99;
-      --sun:    #f5a623;
-      --bg:     #f4f7ff;
-      --card:   #ffffff;
-      --text:   #1a1a2e;
-      --muted:  #555577;
-      --border: #dde3f0;
-      --radius: 12px;
+      --primary:     #022b59;
+      --primary-mid: #0a4a8c;
+      --sky:         #1E9FE0;
+      --gold:        #FFC107;
+      --success:     #2ED97B;
+      --danger:      #E91B0C;
+      --bg:          #F5F7FA;
+      --surface:     #EFF7FB;
+      --card:        #ffffff;
+      --text:        #1A1A1A;
+      --muted:       #6B7280;
+      --border:      #D7E2EA;
+      --radius:      14px;
     }
+
+    html { scroll-behavior: smooth; }
 
     body {
       font-family: 'Segoe UI', Arial, sans-serif;
@@ -26,68 +32,80 @@
       line-height: 1.8;
     }
 
-    /* ── Header ── */
+    /* ─── HEADER ─── */
     header {
-      background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 60%, #1a7fff 100%);
-      color: #fff;
-      padding: 48px 24px 40px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-mid) 55%, var(--sky) 100%);
+      padding: 48px 24px 44px;
       text-align: center;
+      position: relative;
+      overflow: hidden;
     }
 
-    .logo-mark {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 18px;
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
     }
 
-    .logo-icon {
-      width: 48px; height: 48px;
-      background: var(--sun);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 24px;
-    }
-
-    .logo-name {
-      font-size: 1.4rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
+    .header-logo {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 16px rgba(0,0,0,0.25));
+      margin-bottom: 16px;
     }
 
     header h1 {
-      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-size: clamp(1.6rem, 4vw, 2.6rem);
       font-weight: 800;
-      margin-bottom: 8px;
+      color: #fff;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
     }
 
-    header p.subtitle {
-      opacity: .85;
-      font-size: 1rem;
+    .header-tagline {
+      color: rgba(255,255,255,0.8);
+      font-size: .95rem;
+      margin-bottom: 16px;
     }
 
-    /* ── Layout ── */
+    .header-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 20px;
+      color: #fff;
+      font-size: .82rem;
+      padding: 5px 16px;
+      backdrop-filter: blur(6px);
+    }
+
+    /* ─── LAYOUT ─── */
     main {
-      max-width: 900px;
+      max-width: 940px;
       margin: 0 auto;
-      padding: 40px 20px 60px;
+      padding: 40px 20px 70px;
     }
 
-    /* ── Nav Pills ── */
+    /* ─── TOC ─── */
     .toc {
       background: var(--card);
       border: 1px solid var(--border);
+      border-top: 4px solid var(--primary);
       border-radius: var(--radius);
-      padding: 20px 24px;
+      padding: 22px 26px;
       margin-bottom: 32px;
     }
 
-    .toc h3 {
-      font-size: .78rem;
+    .toc-title {
+      font-size: .75rem;
+      font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 1.2px;
-      color: var(--muted);
-      margin-bottom: 12px;
+      letter-spacing: 1.4px;
+      color: var(--primary);
+      margin-bottom: 14px;
     }
 
     .toc ul {
@@ -99,163 +117,184 @@
 
     .toc a {
       display: inline-block;
-      background: var(--bg);
+      background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 20px;
-      padding: 4px 14px;
-      font-size: .85rem;
-      color: var(--blue);
+      padding: 5px 15px;
+      font-size: .83rem;
+      color: var(--primary);
       text-decoration: none;
-      transition: background .15s, color .15s;
+      font-weight: 500;
+      transition: all .15s;
     }
 
-    .toc a:hover { background: var(--blue); color: #fff; }
+    .toc a:hover {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
 
-    /* ── Section Cards ── */
+    /* ─── SECTION CARD ─── */
     .section {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 28px 32px;
-      margin-bottom: 24px;
+      margin-bottom: 22px;
+      overflow: hidden;
       scroll-margin-top: 24px;
     }
 
-    .section-header {
+    .section-head {
       display: flex;
       align-items: center;
-      gap: 12px;
-      margin-bottom: 16px;
+      gap: 14px;
+      padding: 20px 28px;
+      background: linear-gradient(90deg, rgba(2,43,89,.04) 0%, transparent 100%);
+      border-bottom: 1px solid var(--border);
     }
 
-    .section-icon {
-      width: 38px; height: 38px;
-      background: linear-gradient(135deg, var(--blue) 0%, #1a7fff 100%);
-      border-radius: 9px;
+    .s-icon {
+      width: 42px; height: 42px;
+      background: var(--primary);
+      border-radius: 10px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 18px;
+      font-size: 20px;
       flex-shrink: 0;
     }
 
-    h2 {
-      font-size: 1.15rem;
+    .section-head h2 {
+      font-size: 1.1rem;
       font-weight: 700;
-      color: var(--blue-dark);
+      color: var(--primary);
+    }
+
+    .section-body {
+      padding: 22px 28px;
     }
 
     p { margin-bottom: 12px; color: var(--muted); }
     p:last-child { margin-bottom: 0; }
 
     ul, ol {
-      padding-left: 20px;
+      padding-left: 22px;
       color: var(--muted);
       margin-bottom: 12px;
     }
 
-    li { margin-bottom: 6px; }
+    li { margin-bottom: 7px; }
+    strong { color: var(--text); }
 
-    /* ── Data Table ── */
-    .data-table {
+    a { color: var(--sky); }
+
+    /* ─── TABLE ─── */
+    .dt {
       width: 100%;
       border-collapse: collapse;
-      margin: 12px 0;
-      font-size: .9rem;
+      font-size: .875rem;
+      margin: 8px 0 14px;
     }
 
-    .data-table th {
-      background: var(--bg);
-      color: var(--blue-dark);
-      font-weight: 700;
+    .dt th {
+      background: var(--primary);
+      color: #fff;
+      font-weight: 600;
       text-align: left;
       padding: 10px 14px;
-      border: 1px solid var(--border);
+      font-size: .8rem;
+      letter-spacing: .4px;
     }
 
-    .data-table td {
+    .dt th:first-child { border-radius: 8px 0 0 0; }
+    .dt th:last-child  { border-radius: 0 8px 0 0; }
+
+    .dt td {
       padding: 10px 14px;
-      border: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
       color: var(--muted);
       vertical-align: top;
     }
 
-    .data-table tr:hover td { background: #f8faff; }
+    .dt tr:last-child td { border-bottom: none; }
+    .dt tr:nth-child(even) td { background: var(--surface); }
 
-    /* ── Badge ── */
     .badge {
       display: inline-block;
-      background: #e8f0ff;
-      color: var(--blue);
       border-radius: 4px;
-      padding: 2px 8px;
-      font-size: .78rem;
-      font-weight: 600;
+      padding: 2px 9px;
+      font-size: .74rem;
+      font-weight: 700;
     }
 
-    /* ── Highlight Box ── */
-    .highlight {
-      background: #fff8ec;
-      border-left: 4px solid var(--sun);
-      border-radius: 0 8px 8px 0;
+    .badge-req  { background: #e8f0ff; color: var(--primary); }
+    .badge-opt  { background: #f0faf5; color: #1a7a44; }
+    .badge-auto { background: #fff8ec; color: #92600a; }
+
+    /* ─── HIGHLIGHT ─── */
+    .callout {
+      border-radius: 10px;
       padding: 14px 18px;
       margin: 14px 0;
-      color: #7a4f00;
-      font-size: .92rem;
+      font-size: .9rem;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
     }
 
-    /* ── Contact Card ── */
+    .callout-info {
+      background: #e8f4ff;
+      border-left: 4px solid var(--sky);
+      color: #1a4a6e;
+    }
+
+    .callout-warn {
+      background: #fff8ec;
+      border-left: 4px solid var(--gold);
+      color: #7a4f00;
+    }
+
+    .callout-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+    /* ─── CONTACT GRID ─── */
     .contact-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
       gap: 14px;
       margin-top: 16px;
     }
 
-    .contact-item {
-      background: var(--bg);
+    .contact-card {
+      background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 10px;
       padding: 16px;
       display: flex;
-      align-items: flex-start;
       gap: 12px;
+      align-items: flex-start;
     }
 
-    .contact-item .ci-icon { font-size: 22px; }
+    .contact-card .cc-icon { font-size: 22px; flex-shrink: 0; }
+    .cc-label { font-size: .72rem; text-transform: uppercase; letter-spacing: .9px; color: var(--muted); margin-bottom: 3px; }
+    .cc-value { font-size: .92rem; font-weight: 600; color: var(--text); word-break: break-all; }
+    .cc-value a { color: var(--sky); text-decoration: none; }
 
-    .contact-item .ci-label {
-      font-size: .75rem;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: .8px;
-    }
-
-    .contact-item .ci-value {
-      font-size: .95rem;
-      font-weight: 600;
-      color: var(--text);
-      word-break: break-all;
-    }
-
-    .contact-item a { color: var(--blue); text-decoration: none; }
-
-    /* ── Delete CTA ── */
+    /* ─── DELETE CTA ─── */
     .delete-cta {
       background: linear-gradient(135deg, #fff0f0, #fff8f8);
-      border: 1px solid #f5c6c6;
+      border: 1.5px solid #f5c6c6;
       border-radius: var(--radius);
-      padding: 24px 28px;
+      padding: 26px;
       text-align: center;
-      margin-top: 16px;
+      margin-top: 18px;
     }
 
-    .delete-cta h3 { color: #c0392b; margin-bottom: 8px; }
-    .delete-cta p { margin-bottom: 16px; font-size: .9rem; }
+    .delete-cta h3 { color: var(--danger); margin-bottom: 8px; font-size: 1rem; }
+    .delete-cta p  { margin-bottom: 18px; font-size: .9rem; }
 
-    .btn-delete {
+    .btn-danger {
       display: inline-block;
-      background: #c0392b;
+      background: var(--danger);
       color: #fff;
-      padding: 11px 28px;
+      padding: 12px 30px;
       border-radius: 8px;
       text-decoration: none;
       font-weight: 700;
@@ -263,416 +302,417 @@
       transition: background .15s;
     }
 
-    .btn-delete:hover { background: #96281b; }
+    .btn-danger:hover { background: #b5150a; color: #fff; }
 
-    /* ── Footer ── */
+    /* ─── FOOTER ─── */
     footer {
+      background: var(--primary);
+      color: rgba(255,255,255,0.7);
       text-align: center;
       padding: 28px 16px;
-      color: var(--muted);
       font-size: .85rem;
-      border-top: 1px solid var(--border);
     }
 
-    footer a { color: var(--blue); text-decoration: none; }
+    footer .logo-footer {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+      opacity: .7;
+      margin-bottom: 10px;
+    }
 
-    @media (max-width: 600px) {
-      .section { padding: 20px 18px; }
+    footer a { color: rgba(255,255,255,0.85); text-decoration: none; }
+    footer a:hover { color: #fff; }
+    footer .footer-links { margin-top: 10px; }
+    footer .footer-links a { margin: 0 10px; }
+
+    @media (max-width: 640px) {
+      .section-head, .section-body { padding: 16px 18px; }
     }
   </style>
 </head>
 <body>
 
 <header>
-  <div class="logo-mark">
-    <div class="logo-icon">☀️</div>
-    <span class="logo-name">Solar Cleaning Expert</span>
-  </div>
+  <img src="assets/AppLogo.png" alt="Solar Cleaning Expert" class="header-logo" />
   <h1>Privacy Policy</h1>
-  <p class="subtitle">Last updated: June 2026 &nbsp;|&nbsp; Effective: June 2026</p>
+  <p class="header-tagline">Expert Care for Every Panel.</p>
+  <span class="header-badge">Last updated: June 2026 &nbsp;|&nbsp; Effective: June 2026</span>
 </header>
 
 <main>
 
   <!-- TOC -->
   <nav class="toc">
-    <h3>Jump to Section</h3>
+    <div class="toc-title">Quick Navigation</div>
     <ul>
-      <li><a href="#intro">Overview</a></li>
-      <li><a href="#data-collected">Data We Collect</a></li>
-      <li><a href="#how-we-use">How We Use It</a></li>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#data">Data We Collect</a></li>
+      <li><a href="#usage">How We Use It</a></li>
       <li><a href="#sharing">Sharing</a></li>
       <li><a href="#third-party">Third-Party Services</a></li>
-      <li><a href="#permissions">App Permissions</a></li>
+      <li><a href="#permissions">Permissions</a></li>
       <li><a href="#retention">Data Retention</a></li>
       <li><a href="#security">Security</a></li>
-      <li><a href="#children">Children's Privacy</a></li>
+      <li><a href="#children">Children</a></li>
       <li><a href="#rights">Your Rights</a></li>
-      <li><a href="#delete">Account Deletion</a></li>
+      <li><a href="#deletion">Account Deletion</a></li>
       <li><a href="#contact">Contact Us</a></li>
     </ul>
   </nav>
 
   <!-- 1. Overview -->
-  <section class="section" id="intro">
-    <div class="section-header">
-      <div class="section-icon">📋</div>
+  <section class="section" id="overview">
+    <div class="section-head">
+      <div class="s-icon">📋</div>
       <h2>Overview</h2>
     </div>
-    <p>
-      Welcome to <strong>Solar Cleaning Expert</strong>. We are committed to protecting your personal information
-      and your right to privacy. This Privacy Policy describes how we collect, use, store, and share information
-      when you use our mobile application (<strong>"App"</strong>) available on Android.
-    </p>
-    <p>
-      By using our App, you agree to the collection and use of information as described in this policy.
-      If you do not agree, please discontinue use of the App.
-    </p>
-    <div class="highlight">
-      We do <strong>not</strong> sell your personal data to any third party. Data is only used to operate,
-      improve, and support the App and the services you book through it.
+    <div class="section-body">
+      <p>Welcome to <strong>Solar Cleaning Expert</strong> — India's trusted solar panel cleaning and maintenance booking platform. We are committed to protecting your personal information and your right to privacy.</p>
+      <p>This Privacy Policy describes how we collect, use, store, and protect your information when you use our Android application (<strong>Package: com.solarcleaners</strong>).</p>
+      <div class="callout callout-info">
+        <span class="callout-icon">ℹ️</span>
+        <span>We do <strong>not</strong> sell your personal data to any third party. Data is used solely to operate, improve, and support the services you book through our App.</span>
+      </div>
+      <p>By using the App you agree to this policy. If you disagree, please discontinue use and contact us to delete your data.</p>
     </div>
   </section>
 
   <!-- 2. Data Collected -->
-  <section class="section" id="data-collected">
-    <div class="section-header">
-      <div class="section-icon">🗂️</div>
+  <section class="section" id="data">
+    <div class="section-head">
+      <div class="s-icon">🗂️</div>
       <h2>Information We Collect</h2>
     </div>
-    <p>We collect information you provide directly and information gathered automatically when you use the App.</p>
-
-    <table class="data-table">
-      <thead>
-        <tr>
-          <th>Category</th>
-          <th>Data Points</th>
-          <th>Required?</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>Identity</strong></td>
-          <td>Full name, gender, date of birth, profile photo</td>
-          <td><span class="badge">Optional</span></td>
-        </tr>
-        <tr>
-          <td><strong>Contact</strong></td>
-          <td>Phone number, email address, city &amp; country, address</td>
-          <td><span class="badge">Required</span> / Optional</td>
-        </tr>
-        <tr>
-          <td><strong>Authentication</strong></td>
-          <td>Phone OTP (via Firebase), password (service-partner accounts only)</td>
-          <td><span class="badge">Required</span></td>
-        </tr>
-        <tr>
-          <td><strong>Service &amp; Booking</strong></td>
-          <td>Selected services, solar panel size, booking dates &amp; times, remarks, order history, subscription status</td>
-          <td><span class="badge">Required</span></td>
-        </tr>
-        <tr>
-          <td><strong>Payment</strong></td>
-          <td>Payment status, Razorpay order ID &amp; signature (card/bank details are processed directly by Razorpay – we do not store them)</td>
-          <td><span class="badge">Required</span></td>
-        </tr>
-        <tr>
-          <td><strong>Location</strong></td>
-          <td>Approximate or precise device location (for service-area matching)</td>
-          <td><span class="badge">Optional</span></td>
-        </tr>
-        <tr>
-          <td><strong>Device</strong></td>
-          <td>Device type, operating system version, unique device ID, push notification token</td>
-          <td>Automatic</td>
-        </tr>
-        <tr>
-          <td><strong>Media</strong></td>
-          <td>Before/after images uploaded by service partners as proof of work</td>
-          <td>Partner only</td>
-        </tr>
-        <tr>
-          <td><strong>Support</strong></td>
-          <td>Messages submitted through the in-app Contact Us form</td>
-          <td>When used</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="section-body">
+      <table class="dt">
+        <thead>
+          <tr><th>Category</th><th>Data Points</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Identity</strong></td>
+            <td>Full name, gender, date of birth, profile photo</td>
+            <td><span class="badge badge-opt">Optional</span></td>
+          </tr>
+          <tr>
+            <td><strong>Contact</strong></td>
+            <td>Phone number (primary), email address, city, country, service address</td>
+            <td><span class="badge badge-req">Required</span></td>
+          </tr>
+          <tr>
+            <td><strong>Authentication</strong></td>
+            <td>Firebase OTP (phone login), password (service-partner accounts only)</td>
+            <td><span class="badge badge-req">Required</span></td>
+          </tr>
+          <tr>
+            <td><strong>Service &amp; Booking</strong></td>
+            <td>Selected services, solar panel size, booking dates/times, remarks, order history, subscription status</td>
+            <td><span class="badge badge-req">Required</span></td>
+          </tr>
+          <tr>
+            <td><strong>Payment</strong></td>
+            <td>Payment status, Razorpay order ID &amp; signature (card/bank details are handled by Razorpay — we never store them)</td>
+            <td><span class="badge badge-req">Required</span></td>
+          </tr>
+          <tr>
+            <td><strong>Location</strong></td>
+            <td>Approximate or precise device location (for service-area matching)</td>
+            <td><span class="badge badge-opt">Optional</span></td>
+          </tr>
+          <tr>
+            <td><strong>Device</strong></td>
+            <td>Device type, OS version, unique device ID, FCM push notification token</td>
+            <td><span class="badge badge-auto">Automatic</span></td>
+          </tr>
+          <tr>
+            <td><strong>Service Media</strong></td>
+            <td>Before/after images uploaded by service partners as proof of work</td>
+            <td><span class="badge badge-opt">Partner only</span></td>
+          </tr>
+          <tr>
+            <td><strong>Support</strong></td>
+            <td>Messages submitted via the in-app Contact Us form</td>
+            <td><span class="badge badge-opt">When used</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </section>
 
-  <!-- 3. How We Use -->
-  <section class="section" id="how-we-use">
-    <div class="section-header">
-      <div class="section-icon">⚙️</div>
+  <!-- 3. Usage -->
+  <section class="section" id="usage">
+    <div class="section-head">
+      <div class="s-icon">⚙️</div>
       <h2>How We Use Your Information</h2>
     </div>
-    <ul>
-      <li><strong>Service delivery:</strong> Create and manage your account, process bookings and subscriptions, dispatch service partners.</li>
-      <li><strong>Payments:</strong> Initiate and verify payments through Razorpay.</li>
-      <li><strong>Notifications:</strong> Send booking confirmations, service reminders, and promotional updates via push notifications and in-app alerts.</li>
-      <li><strong>Support:</strong> Respond to your queries and resolve complaints.</li>
-      <li><strong>Improvement:</strong> Analyse usage patterns to improve features, fix bugs, and enhance user experience.</li>
-      <li><strong>Security &amp; Fraud Prevention:</strong> Detect and prevent fraudulent activity and protect user accounts.</li>
-      <li><strong>Legal Compliance:</strong> Fulfil obligations under applicable laws and regulations.</li>
-    </ul>
+    <div class="section-body">
+      <ul>
+        <li><strong>Service delivery:</strong> Create/manage your account, process bookings and subscriptions, dispatch cleaning technicians.</li>
+        <li><strong>Payments:</strong> Initiate and verify transactions through Razorpay (UPI, cards, net banking).</li>
+        <li><strong>Notifications:</strong> Send booking confirmations, service reminders, and important updates via push notifications and in-app alerts.</li>
+        <li><strong>Customer support:</strong> Respond to queries, resolve complaints, and provide service assistance.</li>
+        <li><strong>App improvement:</strong> Analyse usage patterns to improve features, fix bugs, and enhance the user experience.</li>
+        <li><strong>Security &amp; fraud prevention:</strong> Detect and prevent unauthorised access and fraudulent activity.</li>
+        <li><strong>Legal compliance:</strong> Fulfil obligations under applicable Indian laws.</li>
+      </ul>
+    </div>
   </section>
 
   <!-- 4. Sharing -->
   <section class="section" id="sharing">
-    <div class="section-header">
-      <div class="section-icon">🤝</div>
+    <div class="section-head">
+      <div class="s-icon">🤝</div>
       <h2>Information Sharing</h2>
     </div>
-    <p>We do <strong>not</strong> sell, rent, or trade your personal information. We may share data only in these limited cases:</p>
-    <ul>
-      <li><strong>Service Partners:</strong> Your name, phone number, and service address are shared with the assigned cleaning technician solely to complete your booking.</li>
-      <li><strong>Payment Processor:</strong> Booking amounts are passed to Razorpay to process your payment. Razorpay operates under its own privacy policy.</li>
-      <li><strong>Infrastructure Providers:</strong> Firebase (Google) for authentication, cloud storage, and push notifications.</li>
-      <li><strong>Legal Requirements:</strong> If required by law, court order, or government authority.</li>
-      <li><strong>Business Transfer:</strong> In the event of a merger or acquisition, your data may be transferred; you will be notified in advance.</li>
-    </ul>
+    <div class="section-body">
+      <p>We do <strong>not</strong> sell, rent, or trade your personal information. We share data only in these limited circumstances:</p>
+      <ul>
+        <li><strong>Service Technicians:</strong> Your name, phone number, and service address are shared with the assigned cleaner solely to complete your booking.</li>
+        <li><strong>Razorpay:</strong> Booking amounts are passed to Razorpay to process payment. Razorpay operates under its own privacy policy.</li>
+        <li><strong>Firebase / Google:</strong> Authentication, cloud storage, and push notification delivery.</li>
+        <li><strong>Legal Requirements:</strong> If required by law, court order, or government authority.</li>
+        <li><strong>Business Transfer:</strong> In the event of a merger or acquisition, you will be notified in advance.</li>
+      </ul>
+    </div>
   </section>
 
   <!-- 5. Third-Party -->
   <section class="section" id="third-party">
-    <div class="section-header">
-      <div class="section-icon">🔗</div>
+    <div class="section-head">
+      <div class="s-icon">🔗</div>
       <h2>Third-Party Services</h2>
     </div>
-    <p>The App integrates the following third-party services. Each has its own privacy policy:</p>
-
-    <table class="data-table">
-      <thead>
-        <tr>
-          <th>Service</th>
-          <th>Purpose</th>
-          <th>Provider</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Firebase Authentication</td>
-          <td>Phone-number OTP login</td>
-          <td>Google LLC</td>
-        </tr>
-        <tr>
-          <td>Firebase Cloud Messaging</td>
-          <td>Push notifications</td>
-          <td>Google LLC</td>
-        </tr>
-        <tr>
-          <td>Firebase App Check</td>
-          <td>App integrity &amp; security</td>
-          <td>Google LLC</td>
-        </tr>
-        <tr>
-          <td>Cloud Storage for Firebase</td>
-          <td>Profile photos &amp; service proof images</td>
-          <td>Google LLC</td>
-        </tr>
-        <tr>
-          <td>Google Play Services</td>
-          <td>Android device services</td>
-          <td>Google LLC</td>
-        </tr>
-        <tr>
-          <td>Razorpay</td>
-          <td>Payment processing (UPI, cards, net banking)</td>
-          <td>Razorpay Software Pvt. Ltd.</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="section-body">
+      <table class="dt">
+        <thead>
+          <tr><th>Service</th><th>Purpose</th><th>Provider</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Firebase Authentication</td>
+            <td>Phone-number OTP login</td>
+            <td>Google LLC</td>
+          </tr>
+          <tr>
+            <td>Firebase Cloud Messaging</td>
+            <td>Push notifications</td>
+            <td>Google LLC</td>
+          </tr>
+          <tr>
+            <td>Firebase App Check</td>
+            <td>App integrity &amp; security</td>
+            <td>Google LLC</td>
+          </tr>
+          <tr>
+            <td>Cloud Storage for Firebase</td>
+            <td>Profile photos &amp; service-proof images</td>
+            <td>Google LLC</td>
+          </tr>
+          <tr>
+            <td>Google Play Services</td>
+            <td>Android device services</td>
+            <td>Google LLC</td>
+          </tr>
+          <tr>
+            <td>Razorpay</td>
+            <td>Payment processing (UPI, cards, net banking)</td>
+            <td>Razorpay Software Pvt. Ltd.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </section>
 
   <!-- 6. Permissions -->
   <section class="section" id="permissions">
-    <div class="section-header">
-      <div class="section-icon">🔐</div>
+    <div class="section-head">
+      <div class="s-icon">🔐</div>
       <h2>App Permissions</h2>
     </div>
-    <p>The App may request the following device permissions:</p>
-    <table class="data-table">
-      <thead>
-        <tr>
-          <th>Permission</th>
-          <th>Why It Is Needed</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Internet</td>
-          <td>Core app functionality – API calls, booking, payments</td>
-        </tr>
-        <tr>
-          <td>Location (Coarse &amp; Fine)</td>
-          <td>Detect your area to match available services (optional)</td>
-        </tr>
-        <tr>
-          <td>Camera</td>
-          <td>Upload profile photo or service-proof images</td>
-        </tr>
-        <tr>
-          <td>Storage (Read/Write)</td>
-          <td>Save and access images from your device</td>
-        </tr>
-        <tr>
-          <td>Post Notifications</td>
-          <td>Receive booking confirmations and service updates</td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="highlight">
-      You can revoke any optional permission at any time through your device Settings → Apps → Solar Cleaning Expert → Permissions.
+    <div class="section-body">
+      <table class="dt">
+        <thead>
+          <tr><th>Permission</th><th>Purpose</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Internet</td>
+            <td>Core app functionality — API calls, booking, payments</td>
+          </tr>
+          <tr>
+            <td>Location (Coarse &amp; Fine)</td>
+            <td>Detect your area to match available cleaning services</td>
+          </tr>
+          <tr>
+            <td>Camera</td>
+            <td>Upload profile photo or service-proof images</td>
+          </tr>
+          <tr>
+            <td>Storage (Read/Write)</td>
+            <td>Save and access images from your device</td>
+          </tr>
+          <tr>
+            <td>Post Notifications</td>
+            <td>Receive booking confirmations and service updates</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="callout callout-warn">
+        <span class="callout-icon">💡</span>
+        <span>You can revoke any optional permission at any time via <strong>Device Settings → Apps → Solar Cleaning Expert → Permissions</strong>.</span>
+      </div>
     </div>
   </section>
 
   <!-- 7. Retention -->
   <section class="section" id="retention">
-    <div class="section-header">
-      <div class="section-icon">🗄️</div>
+    <div class="section-head">
+      <div class="s-icon">🗄️</div>
       <h2>Data Retention</h2>
     </div>
-    <p>
-      We retain your personal data only as long as your account is active or as needed to provide services.
-    </p>
-    <ul>
-      <li><strong>Active Accounts:</strong> Data is retained for the duration of your use of the App.</li>
-      <li><strong>Account Deletion:</strong> Upon deletion, personal data is permanently removed or anonymised within <strong>30 days</strong>.</li>
-      <li><strong>Payment Records:</strong> Transaction records may be retained for up to <strong>7 years</strong> as required under Indian financial laws (GST, IT Act).</li>
-      <li><strong>Support Tickets:</strong> Retained for 12 months to resolve follow-up queries.</li>
-    </ul>
+    <div class="section-body">
+      <ul>
+        <li><strong>Active accounts:</strong> Data is retained for the duration of your use of the App.</li>
+        <li><strong>Account deletion:</strong> Personal data is permanently removed or anonymised within <strong>30 days</strong> of deletion.</li>
+        <li><strong>Payment records:</strong> Retained for up to <strong>7 years</strong> as required under the Indian GST Act and Income Tax Act.</li>
+        <li><strong>Support tickets:</strong> Retained for 12 months to resolve any follow-up queries.</li>
+      </ul>
+    </div>
   </section>
 
   <!-- 8. Security -->
   <section class="section" id="security">
-    <div class="section-header">
-      <div class="section-icon">🛡️</div>
+    <div class="section-head">
+      <div class="s-icon">🛡️</div>
       <h2>Data Security</h2>
     </div>
-    <p>We implement industry-standard measures to protect your data:</p>
-    <ul>
-      <li>All data transmitted between the App and our servers uses <strong>HTTPS/TLS encryption</strong>.</li>
-      <li>Authentication tokens are stored in your device's <strong>secure keychain/keystore</strong>.</li>
-      <li>Firebase App Check prevents unauthorised API access.</li>
-      <li>Payment data is handled entirely by <strong>PCI-DSS compliant Razorpay</strong> – we never see your card details.</li>
-      <li>Account deletion requires <strong>password confirmation</strong> to prevent unauthorised deletion.</li>
-    </ul>
-    <p>
-      While we strive to protect your data, no method of electronic transmission or storage is 100% secure.
-      Please keep your login credentials confidential.
-    </p>
+    <div class="section-body">
+      <ul>
+        <li>All data is transmitted using <strong>HTTPS / TLS encryption</strong>.</li>
+        <li>Authentication tokens are stored in your device's <strong>secure Keychain / Keystore</strong>.</li>
+        <li>Firebase App Check prevents unauthorised API access.</li>
+        <li>Payment data is handled by <strong>PCI-DSS compliant Razorpay</strong> — we never see your card or bank details.</li>
+        <li>Account deletion requires <strong>password confirmation</strong> to prevent unauthorised actions.</li>
+      </ul>
+      <p>While we use industry-standard safeguards, no electronic transmission is 100% secure. Please keep your login credentials confidential.</p>
+    </div>
   </section>
 
   <!-- 9. Children -->
   <section class="section" id="children">
-    <div class="section-header">
-      <div class="section-icon">👶</div>
+    <div class="section-head">
+      <div class="s-icon">👶</div>
       <h2>Children's Privacy</h2>
     </div>
-    <p>
-      Our App is intended for users aged <strong>18 years and above</strong>. We do not knowingly collect
-      personal information from children under 18. If you believe a child has provided us with personal
-      information, please contact us and we will promptly delete it.
-    </p>
+    <div class="section-body">
+      <p>Our App is intended for users aged <strong>18 years and above</strong>. We do not knowingly collect personal information from children under 18. If you believe a child has provided us with personal information, please contact us and we will promptly delete it.</p>
+    </div>
   </section>
 
   <!-- 10. Rights -->
   <section class="section" id="rights">
-    <div class="section-header">
-      <div class="section-icon">✅</div>
+    <div class="section-head">
+      <div class="s-icon">✅</div>
       <h2>Your Rights</h2>
     </div>
-    <p>You have the following rights regarding your personal data:</p>
-    <ul>
-      <li><strong>Access:</strong> Request a copy of the personal data we hold about you.</li>
-      <li><strong>Correction:</strong> Update inaccurate or incomplete profile information directly in the App.</li>
-      <li><strong>Deletion:</strong> Delete your account and all associated personal data (see below).</li>
-      <li><strong>Withdraw Consent:</strong> Revoke optional permissions (location, notifications) through device settings.</li>
-      <li><strong>Portability:</strong> Request your data in a machine-readable format by contacting us.</li>
-      <li><strong>Grievance Redressal:</strong> Lodge a complaint with us; we will respond within 30 days.</li>
-    </ul>
-    <p>To exercise any of these rights, contact us at <a href="mailto:support@solarcleaningexpert.co.in"><strong>support@solarcleaningexpert.co.in</strong></a>.</p>
+    <div class="section-body">
+      <ul>
+        <li><strong>Access:</strong> Request a copy of the personal data we hold about you.</li>
+        <li><strong>Correction:</strong> Update inaccurate or incomplete information directly in the App (Profile screen).</li>
+        <li><strong>Deletion:</strong> Permanently delete your account and all associated data.</li>
+        <li><strong>Withdraw consent:</strong> Revoke optional permissions (location, notifications) through device settings at any time.</li>
+        <li><strong>Data portability:</strong> Request your data in a readable format by contacting us.</li>
+        <li><strong>Grievance redressal:</strong> Lodge a complaint; we will respond within <strong>30 days</strong>.</li>
+      </ul>
+      <p>To exercise any of these rights, email <a href="mailto:support@solarcleaningexpert.co.in"><strong>support@solarcleaningexpert.co.in</strong></a>.</p>
+    </div>
   </section>
 
-  <!-- 11. Delete Account -->
-  <section class="section" id="delete">
-    <div class="section-header">
-      <div class="section-icon">🗑️</div>
+  <!-- 11. Deletion -->
+  <section class="section" id="deletion">
+    <div class="section-head">
+      <div class="s-icon">🗑️</div>
       <h2>Account &amp; Data Deletion</h2>
     </div>
-    <p>You can permanently delete your account and all associated data at any time.</p>
+    <div class="section-body">
+      <p>You can permanently delete your account and all associated data at any time using one of the methods below.</p>
 
-    <p><strong>How to delete your account inside the App:</strong></p>
-    <ol>
-      <li>Open the App and log in.</li>
-      <li>Tap the <strong>menu icon (☰)</strong> to open the side drawer.</li>
-      <li>Tap <strong>"Delete Account"</strong> (shown in red).</li>
-      <li>Read the confirmation warning and tap <strong>Continue</strong>.</li>
-      <li>Enter your <strong>password</strong> to confirm.</li>
-      <li>Your account and data will be permanently deleted.</li>
-    </ol>
+      <p><strong>Method 1 — Inside the App (Recommended):</strong></p>
+      <ol>
+        <li>Open the App and log in.</li>
+        <li>Tap the <strong>menu icon ☰</strong> to open the side drawer.</li>
+        <li>Tap <strong>"Delete Account"</strong> (shown in red at the bottom of the menu).</li>
+        <li>Read the confirmation warning and tap <strong>Continue</strong>.</li>
+        <li>Enter your <strong>password</strong> to confirm. Your account is permanently deleted.</li>
+      </ol>
 
-    <div class="highlight">
-      Deletion is <strong>permanent and cannot be undone</strong>. Active subscriptions, booking history,
-      and all personal data will be removed within 30 days. Payment transaction records may be retained
-      for up to 7 years as required by law.
-    </div>
+      <div class="callout callout-warn" style="margin-top:14px;">
+        <span class="callout-icon">⚠️</span>
+        <span>Deletion is <strong>permanent and cannot be undone</strong>. Active subscriptions and all personal data are removed within 30 days. Payment records are retained up to 7 years as required by Indian law.</span>
+      </div>
 
-    <div class="delete-cta">
-      <h3>Prefer to request deletion by email?</h3>
-      <p>If you are unable to access the App, send a deletion request from your registered email address.</p>
-      <a class="btn-delete" href="delete-account.html">Request Account Deletion →</a>
+      <div class="delete-cta">
+        <h3>Can't access the App?</h3>
+        <p>Use our web form to submit a deletion request. Verify your identity with your registered phone number and we'll process it within 7 business days.</p>
+        <a href="delete-account.html" class="btn-danger">Request Account Deletion →</a>
+      </div>
     </div>
   </section>
 
   <!-- 12. Contact -->
   <section class="section" id="contact">
-    <div class="section-header">
-      <div class="section-icon">📬</div>
+    <div class="section-head">
+      <div class="s-icon">📬</div>
       <h2>Contact Us</h2>
     </div>
-    <p>If you have questions, concerns, or requests regarding this Privacy Policy, reach us through:</p>
-    <div class="contact-grid">
-      <div class="contact-item">
-        <span class="ci-icon">📧</span>
-        <div>
-          <div class="ci-label">Support Email</div>
-          <div class="ci-value"><a href="mailto:support@solarcleaningexpert.co.in">support@solarcleaningexpert.co.in</a></div>
+    <div class="section-body">
+      <p>For any privacy questions, concerns, or data requests, reach us through:</p>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <span class="cc-icon">📧</span>
+          <div>
+            <div class="cc-label">Support Email</div>
+            <div class="cc-value"><a href="mailto:support@solarcleaningexpert.co.in">support@solarcleaningexpert.co.in</a></div>
+          </div>
+        </div>
+        <div class="contact-card">
+          <span class="cc-icon">📞</span>
+          <div>
+            <div class="cc-label">Phone / WhatsApp</div>
+            <div class="cc-value"><a href="tel:+919799802000">+91 9799-802000</a></div>
+          </div>
+        </div>
+        <div class="contact-card">
+          <span class="cc-icon">🏢</span>
+          <div>
+            <div class="cc-label">Company</div>
+            <div class="cc-value">Solar Cleaning Expert</div>
+          </div>
+        </div>
+        <div class="contact-card">
+          <span class="cc-icon">⚖️</span>
+          <div>
+            <div class="cc-label">Jurisdiction</div>
+            <div class="cc-value">India · IT Act 2000 · DPDP Act 2023</div>
+          </div>
         </div>
       </div>
-      <div class="contact-item">
-        <span class="ci-icon">📞</span>
-        <div>
-          <div class="ci-label">Phone / WhatsApp</div>
-          <div class="ci-value"><a href="tel:+919799802000">+91 9799-802000</a></div>
-        </div>
-      </div>
-      <div class="contact-item">
-        <span class="ci-icon">🏢</span>
-        <div>
-          <div class="ci-label">Company</div>
-          <div class="ci-value">Solar Cleaning Expert</div>
-        </div>
-      </div>
-      <div class="contact-item">
-        <span class="ci-icon">🌏</span>
-        <div>
-          <div class="ci-label">Jurisdiction</div>
-          <div class="ci-value">India (IT Act, 2000 &amp; DPDP Act, 2023)</div>
-        </div>
-      </div>
+      <p style="margin-top:16px;">We aim to respond to all privacy-related queries within <strong>30 business days</strong>.</p>
     </div>
-    <p style="margin-top:16px;">We aim to respond to all privacy-related queries within <strong>30 business days</strong>.</p>
   </section>
 
 </main>
 
 <footer>
+  <img src="assets/AppLogo.png" alt="Solar Cleaning Expert" class="logo-footer" />
   <p>© 2026 Solar Cleaning Expert. All rights reserved.</p>
-  <p style="margin-top:6px;">
-    <a href="index.html">Privacy Policy</a> &nbsp;|&nbsp;
+  <p style="margin-top:4px;">Expert Care for Every Panel.</p>
+  <div class="footer-links">
+    <a href="index.html">Privacy Policy</a>
     <a href="delete-account.html">Delete My Account</a>
-  </p>
+  </div>
 </footer>
 
 </body>
